@@ -41,7 +41,7 @@ public class CustomerService {
 		dto.setId(customer.getId());
 		dto.setName(customer.getName());
 		dto.setPhoneNumber(customer.getPhoneNumber());
-		dto.setPetIds(customer.getPets().stream().map(p -> p.getId()).collect(Collectors.toList()));
+		if (customer.getPets() != null) dto.setPetIds(customer.getPets().stream().map(p -> p.getId()).collect(Collectors.toList()));
 		dto.setNotes(customer.getNotes());
 
 		return dto;
@@ -52,7 +52,7 @@ public class CustomerService {
 		if (dto.getId() != 0) customer.setId(dto.getId());
 		customer.setName(dto.getName());
 		customer.setPhoneNumber(dto.getPhoneNumber());
-		customer.setPets(dto.getPetIds().stream().map(id -> petRepository.findById(id).get()).collect(Collectors.toList()));
+		if (dto.getPetIds() != null) customer.setPets(dto.getPetIds().stream().map(id -> petRepository.findById(id).get()).collect(Collectors.toList()));
 		customer.setNotes(dto.getNotes());
 
 		return customer;

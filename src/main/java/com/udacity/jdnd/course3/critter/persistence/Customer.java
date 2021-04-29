@@ -1,5 +1,6 @@
 package com.udacity.jdnd.course3.critter.persistence;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,12 +31,12 @@ public class Customer {
 	private String notes;
 
 	// bi-directional
-	@OneToMany(mappedBy = "customer")
-	private List<Pet> pets;
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
+	private List<Pet> pets = new ArrayList<>();
 
 	// bi-directional
 	@ManyToMany(mappedBy = "customers")
-	private List<Schedule> schedules;
+	private List<Schedule> schedules = new ArrayList<>();
 
 	public Customer(){
 

@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.DayOfWeek;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -31,16 +33,16 @@ public class Employee {
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	@Column(name = "SKILL")
-	private Set<EmployeeSkill> skills;
+	private Set<EmployeeSkill> skills = new HashSet<>();
 
 	@ElementCollection
 	@Enumerated(EnumType.STRING)
 	@Column(name = "DAY_AVAILABLE")
-	private Set<DayOfWeek> daysAvailable;
+	private Set<DayOfWeek> daysAvailable = new HashSet<>();
 
 	// bi-directional
 	@ManyToMany(mappedBy = "employees")
-	private List<Schedule> schedules;
+	private List<Schedule> schedules = new ArrayList<>();
 
 	public Employee() {
 

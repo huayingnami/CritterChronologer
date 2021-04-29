@@ -15,6 +15,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -30,17 +32,17 @@ public class Schedule {
 	// bi-directional
 	@ManyToMany
 	@JoinColumn(name = "EMPLOYEE_ID")
-	private List<Employee> employees;
+	private List<Employee> employees = new ArrayList<>();
 
 	// bi-directional
 	@ManyToMany
 	@JoinColumn(name = "PET_ID")
-	private List<Pet> pets;
+	private List<Pet> pets = new ArrayList<>();
 
 	// bi-directional
 	@ManyToMany
 	@JoinColumn(name = "CUSTOMER_ID")
-	private List<Customer> customers;
+	private List<Customer> customers = new ArrayList<>();
 
 	@Column(name = "DATE")
 	private LocalDate date;
@@ -48,7 +50,7 @@ public class Schedule {
 	@ElementCollection
 	@Column(name = "ACTIVITY")
 	@Enumerated(EnumType.STRING)
-	private Set<EmployeeSkill> activities;
+	private Set<EmployeeSkill> activities = new HashSet<>();
 
 	public Schedule(){
 

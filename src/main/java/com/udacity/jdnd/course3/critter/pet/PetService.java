@@ -6,6 +6,7 @@ import com.udacity.jdnd.course3.critter.persistence.repository.CustomerRepositor
 import com.udacity.jdnd.course3.critter.persistence.repository.PetRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -19,14 +20,16 @@ public class PetService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
+	@Transactional
 	public PetDTO savePet(PetDTO petDTO){
 
-		Pet pet = toPet(petDTO);
+		Customer customer = customerRepository.findById(petDTO.getOwnerId()).get();
+		Pet pet = toPet(petDTO, customer);
 		petRepository.save(pet);
+		customer.getPets().add(pet);
+		customerRepository.save(customer);
 
-		petDTO.setId(pet.getId());
-
-		return petDTO;
+		return toPetDTO(pet);
 	}
 
 	public PetDTO getPet(Long id){
@@ -63,14 +66,14 @@ public class PetService {
 		return petDTO;
 	}
 
-	private Pet toPet(PetDTO petDTO){
+	private Pet toPet(PetDTO petDTO, Customer customer){
 
 		Pet pet = new Pet();
 		if (petDTO.getId() != 0) pet.setId(petDTO.getId());
 		pet.setName(petDTO.getName());
 		pet.setType(petDTO.getType());
 		pet.setBirthDate(petDTO.getBirthDate());
-		pet.setCustomer(customerRepository.findById(petDTO.getOwnerId()).get());
+		pet.setCustomer(customer);
 		pet.setNotes(petDTO.getNotes());
 
 		return pet;

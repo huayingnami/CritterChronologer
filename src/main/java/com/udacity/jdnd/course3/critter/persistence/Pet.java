@@ -2,6 +2,7 @@ package com.udacity.jdnd.course3.critter.persistence;
 
 import com.udacity.jdnd.course3.critter.pet.PetType;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +15,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -33,7 +35,7 @@ public class Pet {
 	private String name;
 
 	// bi-directional
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "CUSTOMER_ID")
 	private Customer customer;
 
@@ -45,7 +47,7 @@ public class Pet {
 
 	// bi-directional
 	@ManyToMany(mappedBy = "pets")
-	private List<Schedule> schedules;
+	private List<Schedule> schedules = new ArrayList<>();
 
 	public Pet(){
 
