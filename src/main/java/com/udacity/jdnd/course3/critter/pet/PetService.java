@@ -46,7 +46,7 @@ public class PetService {
 	public List<PetDTO> getPetByOwner(Long ownerId){
 
 		Customer owner = customerRepository.findById(ownerId).get();
-		List<Pet> pets = petRepository.findByOwner(owner);
+		List<Pet> pets = owner.getPets();
 
 		return pets.stream().map(this::toPetDTO).collect(Collectors.toList());
 	}
