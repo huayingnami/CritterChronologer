@@ -41,6 +41,10 @@ public class Pet {
 	@Column(name = "NOTES")
 	private String notes;
 
+	public Pet(){
+
+	}
+
 	public Pet(Long id, PetType type, String name, Customer customer, LocalDate birthDate, String notes) {
 		this.id = id;
 		this.type = type;

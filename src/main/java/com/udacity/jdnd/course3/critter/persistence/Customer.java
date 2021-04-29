@@ -31,6 +31,10 @@ public class Customer {
 	@OneToMany(mappedBy = "customer")
 	private List<Pet> pets;
 
+	public Customer(){
+
+	}
+
 	public Customer(Long id, String name, String phoneNumber, String notes, List<Pet> pets) {
 		this.id = id;
 		this.name = name;

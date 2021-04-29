@@ -44,6 +44,9 @@ public class Schedule {
 	@Enumerated(EnumType.STRING)
 	private Set<EmployeeSkill> activities;
 
+	public Schedule(){
+
+	}
 
 	public Schedule(Long id, List<Employee> employees, List<Pet> pets, LocalDate date, Set<EmployeeSkill> activities) {
 		this.id = id;
