@@ -23,7 +23,7 @@ public class PetService {
 	@Transactional
 	public PetDTO savePet(PetDTO petDTO){
 
-		Customer customer = customerRepository.findById(petDTO.getOwnerId()).get();
+		Customer customer = customerRepository.findById(petDTO.getOwnerId()).orElseThrow(() -> new RuntimeException("OWNER NOT PRESENT"));
 		Pet pet = toPet(petDTO, customer);
 		petRepository.save(pet);
 		customer.getPets().add(pet);
