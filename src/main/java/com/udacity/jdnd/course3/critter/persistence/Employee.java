@@ -10,8 +10,10 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import java.time.DayOfWeek;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -35,6 +37,10 @@ public class Employee {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "DAY_AVAILABLE")
 	private Set<DayOfWeek> daysAvailable;
+
+	// bi-directional
+	@ManyToMany(mappedBy = "employees")
+	private List<Schedule> schedules;
 
 	public Employee() {
 

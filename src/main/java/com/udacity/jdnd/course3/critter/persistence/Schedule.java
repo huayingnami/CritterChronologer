@@ -11,6 +11,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.time.LocalDate;
@@ -26,15 +27,20 @@ public class Schedule {
 	@Column(name = "ID")
 	private Long id;
 
-	// unidirectional
-	@OneToMany
+	// bi-directional
+	@ManyToMany
 	@JoinColumn(name = "EMPLOYEE_ID")
 	private List<Employee> employees;
 
-	// unidirectional
-	@OneToMany
+	// bi-directional
+	@ManyToMany
 	@JoinColumn(name = "PET_ID")
 	private List<Pet> pets;
+
+	// bi-directional
+	@ManyToMany
+	@JoinColumn(name = "CUSTOMER_ID")
+	private List<Customer> customers;
 
 	@Column(name = "DATE")
 	private LocalDate date;
@@ -48,10 +54,11 @@ public class Schedule {
 
 	}
 
-	public Schedule(Long id, List<Employee> employees, List<Pet> pets, LocalDate date, Set<EmployeeSkill> activities) {
+	public Schedule(Long id, List<Employee> employees, List<Pet> pets, List<Customer> customers, LocalDate date, Set<EmployeeSkill> activities) {
 		this.id = id;
 		this.employees = employees;
 		this.pets = pets;
+		this.customers = customers;
 		this.date = date;
 		this.activities = activities;
 	}
@@ -78,6 +85,14 @@ public class Schedule {
 
 	public void setPets(List<Pet> pets) {
 		this.pets = pets;
+	}
+
+	public List<Customer> getCustomers() {
+		return customers;
+	}
+
+	public void setCustomers(List<Customer> customers) {
+		this.customers = customers;
 	}
 
 	public LocalDate getDate() {

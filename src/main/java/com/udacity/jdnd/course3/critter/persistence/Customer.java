@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import java.util.List;
@@ -30,6 +31,10 @@ public class Customer {
 	// bi-directional
 	@OneToMany(mappedBy = "customer")
 	private List<Pet> pets;
+
+	// bi-directional
+	@ManyToMany(mappedBy = "customers")
+	private List<Schedule> schedules;
 
 	public Customer(){
 
