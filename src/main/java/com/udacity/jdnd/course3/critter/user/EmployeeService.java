@@ -35,14 +35,15 @@ public class EmployeeService {
 		employeeRepository.save(employee);
 	}
 
+	// employee skills must match all required skills
 	public List<EmployeeDTO> findEmployeeForService(EmployeeRequestDTO employeeRequestDTO){
 		Set<EmployeeSkill> skillSet = employeeRequestDTO.getSkills();
 		LocalDate date = employeeRequestDTO.getDate();
 		List<Employee> employees = new ArrayList<>();
-		for (EmployeeSkill s: skillSet){
-			List<Employee> found = employeeRepository.findBySkillsAndDaysAvailable(s, DayOfWeek.from(date));
-			employees.addAll(found.stream().filter(e -> !employees.contains(e)).collect(Collectors.toList()));
-		}
+
+			List<Employee> found = employeeRepository.findByDaysAvailable(DayOfWeek.from(date));
+			employees.addAll(found.stream().filter(e -> e.getSkills().containsAll(skillSet)).collect(Collectors.toList()));
+
 		return employees.stream().map(this::toEmployeeDTO).collect(Collectors.toList());
 	}
 
