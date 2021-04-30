@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Transactional
 public class PetService {
 
 	@Autowired
@@ -20,7 +21,6 @@ public class PetService {
 	@Autowired
 	private CustomerRepository customerRepository;
 
-	@Transactional
 	public PetDTO savePet(PetDTO petDTO){
 
 		Customer customer = customerRepository.findById(petDTO.getOwnerId()).orElseThrow(() -> new RuntimeException("OWNER NOT PRESENT"));
